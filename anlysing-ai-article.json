@@ -1,0 +1,178 @@
+{
+  "initial exercice": "
+       EXERCICE 1 — Prompt Engineering Core
+            Tu dois écrire un prompt pour :
+            Générer un résumé structuré d’un article AI avec score d’impact business.
+            Contraintes obligatoires :
+            Maximum 150 mots
+            JSON strict
+            Score d’impact entre 0 et 10
+            Pas de métaphore
+            Pas d’opinion vague
+            Ton neutre et analytique
+  ",
+  "my_first_prompt" : "
+      Tu es journaliste spécialisé dans les nouvelle technologie et specialement dans l'AI
+      ta tâche : faire un résumé d'un article AI donné en 150 mots maximum, sans métaphore,   sans opinion vague, avec un temps neutre et analytique
+      le resumé sous format json, avec les attributs suivants : 
+      title, summary, business_impact_score, impact_reasoning, and confidance
+      ",
+  "errors": {
+    "role": "journaliste -> Analyste technologique spécialisé en intelligence artificiellejhb",
+    "tache": "faire un résumé d'un article AI donné -> ",
+    "Contraintes": "Tu ne précises pas “ne dépasse jamais, Tu ne définis pas “opinion vague”, Tu ne forces pas JSON strict",
+    "format": "tu n'impose pas : répends uniquement avec un JSON valide, Tu n'impose pas de types (float, int), une faute de frape : confidance risque de bug prod, pas de bornes pour score, pas de gestion d'erreur"
+  },
+  "missing": {
+    "Délimiteur article",,
+    "Interdiction de texte hors JSON",
+    "Types de contraibnts",
+    "Bornes strictes",
+    "Gestion si info insuffisante",
+    "Régles de validation internes"
+  },
+  "version expert": 
+  "
+    Tu es un analyste technologique spécialisé en intelligence artificielle.
+    
+    Ta tâche est de produire un résumé analytique d’un article fourni ci-dessous.
+      
+    Contraintes obligatoires :
+    Maximum 150 mots pour le champ "summary"
+    Ton neutre, factuel, analytique
+    Aucune métaphore
+    Aucune opinion non justifiée
+    Ne pas extrapoler au-delà des informations fournies
+    Si l’information est insuffisante, indique-le dans "impact_reasoning"
+    
+    Score :
+    "business_impact_score" doit être un entier entre 0 et 10
+    Justifie objectivement ce score dans "impact_reasoning"
+    "confidence" doit être un nombre décimal entre 0.0 et 1.0
+    
+    Format de sortie :
+    Réponds uniquement avec un JSON strictement valide, sans texte avant ou après, suivant exactement cette structure :
+    
+    {
+    "title": "string",
+    "summary": "string (≤150 mots)",
+    "business_impact_score": integer (0-10),
+    "impact_reasoning": "string",
+    "confidence": float (0.0-1.0)
+  }
+  
+  Article :
+  <<<ARTICLE>>>
+  {article_text}
+  <<<END_ARTICLE>>>
+  ",
+
+"optimisée": "
+    ROLE: Analyste IA stratégique.
+    TASK: Résumer le contenu fourni et évaluer son impact business.
+    
+    RULES:
+    - summary ≤150 mots
+    - Ton neutre, factuel
+    - NO_METAPHORS
+    - NO_EXTRAPOLATION
+    - business_impact_score: integer 0–10
+    - confidence: float 0.0–1.0
+    - If data insufficient, state it in "impact_reasoning"
+    - Return ONLY valid JSON (no extra text)
+    
+    OUTPUT:
+    {
+    "title": string,
+    "summary": string,
+    "business_impact_score": int,
+    "impact_reasoning": string,
+    "confidence": float
+    }
+    
+    CTX:
+    <<<CTX>>>
+    {article}
+    <<<END>>>
+"
+
+Mini Exercice : 
+
+ini-exercice (niveau +1)
+
+Tu as 3 articles sur :
+
+Nouveau modèle OpenAI
+
+Investissement Microsoft en AI
+
+Régulation européenne IA
+
+Tu dois faire un résumé business global.
+
+ma réponse : 
+
+    Doc1.
+    - Sujet: Nouveau modèle OpenAI
+    - Chiffres clés:
+    - Impact mentionné:
+    - Source: cnn.com
+    
+    Doc2.
+    - Sujet: Investissement Microsoft en AI
+    - Chiffres clés:
+    - Impact mentionné:
+    - Source: cnn.com
+    
+    Doc3.
+    - Sujet: Régulation européenne IA
+    - Chiffres clés:
+    - Impact mentionné:
+    - Source: cnn.com
+
+réponse LLM: 
+      DOCUMENTS_FOR_SYNTHESIS
+      
+      [DOC_ID:1]
+      Topic: OpenAI new model
+      Facts:
+      - Model name:
+      - Key capabilities:
+      - Performance metrics:
+      - Release date:
+      Business Signals:
+      - Target market:
+      - Competitive positioning:
+      - Monetization mention:
+      Source: cnn.com
+      Relevance_score: 0.82
+      
+      [DOC_ID:2]
+      Topic: Microsoft AI investment
+      Facts:
+      - Investment amount:
+      - Timeline:
+      - Strategic objective:
+      Business Signals:
+      - Market expansion:
+      - Revenue impact:
+      Source: cnn.com
+      Relevance_score: 0.77
+      
+      [DOC_ID:3]
+      Topic: EU AI regulation
+      Facts:
+      - Regulation scope:
+      - Affected sectors:
+      - Enforcement timeline:
+      Business Signals:
+      - Compliance cost:
+      - Market restriction:
+      Source: cnn.com
+      Relevance_score: 0.69
+
+
+
+--> Un LLM n’est PAS un parser CSV.
+}
+
